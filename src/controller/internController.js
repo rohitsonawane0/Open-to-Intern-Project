@@ -1,4 +1,4 @@
-const internModel = require("../model/internModel");
+const internModel = require("../models/internModel");
 
 exports.createIntern = function (req, res) {
   const data = req.body;
