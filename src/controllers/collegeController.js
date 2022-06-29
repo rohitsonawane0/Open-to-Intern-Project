@@ -31,7 +31,7 @@ exports.getCollegeDetails = async function (req, res) {
         } else {
             college.interns = intern
         }
-        res.status(200).send({ status: true, msg: college })
+        res.status(200).send({ status: true, data: college })
     } catch (error) {
         res.status(500).send({ status: false, mgs: error.message });
 
