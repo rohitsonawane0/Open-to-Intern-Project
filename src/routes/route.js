@@ -12,5 +12,4 @@ const InternController = require('../controllers/internController.js');
 router.post('/functionup/colleges', collegeValidation.validationCollege, CollegeController.createCollege)
 router.post('/functionup/interns', InternValidation.validationInter, InternController.createIntern)
 router.get("/functionup/collegeDetails", CollegeController.getCollegeDetails);
-//collegeValidation.validationCollege,
 module.exports = router;
