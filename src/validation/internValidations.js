@@ -8,6 +8,7 @@ const valid = function (str) {
 };
 const regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 const mobileRegex = /^[+0]{0,2}(91)?[0-9]{10}$/
+const rogex = /^[ A-Za-z0-9.,]*$/
 
 const emailValid = function (str) {
     if (str === undefined || str == null) return "Email must be present";
