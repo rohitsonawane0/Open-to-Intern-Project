@@ -1,4 +1,5 @@
 const CollegeModel = require('../models/collegeModel.js');
+const internModel = require('../models/internModel.js');
 
 exports.createCollege = async function (req, res) {
     try {
@@ -10,3 +11,10 @@ exports.createCollege = async function (req, res) {
     }
 }
 
+
+exports.getCollegeDetails = async function (req, res) {
+    const name = req.query.collegeName
+    const college = await CollegeModel.find({ name: name }).populate("interns")
+    console.log(college)
+    res.status(200).send({ status: true, msg: college })
+}
