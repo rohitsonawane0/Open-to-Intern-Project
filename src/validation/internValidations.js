@@ -7,7 +7,9 @@ const valid = function (str) {
     if (typeof str == "string" && str.trim().length == 0) return false;
     return true;
 };
-const regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+const regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+const mobileRegex = /^[+0]{0,2}(91)?[0-9]{10}$/
+
 const emailValid = function (str) {
     if (str === undefined || str == null) return "Email must be present";
     if (typeof str == "string" && str.trim().length == 0) return "Email must be present";
@@ -18,14 +20,25 @@ const emailValid = function (str) {
 
 const checkNumber = function (str) {
     if (typeof str == "string" && str.trim().length == 0) return 'Mobile number cannot be empty'
-    // if (str.match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(str.match(/0{5,}/))) return true
+    console.log(mobileRegex.test(str))
+    // if (mobileRegex.test(str) != true) return 'Mobile incorrect'
     if (str.startsWith("0") || str.startsWith("1") || str.startsWith("2") || str.startsWith("3") || str.startsWith("4") || str.startsWith("5")) return "Mobile number is invalid"
     if (str.length != 10) return 'Mobile number must be 10 digits'
+    if (!mobileRegex.test(str)) return "Please provide valid mobileee";
     return true
 }
 
 exports.validationInter = async function (req, res, next) {
     try {
+        const filedAllowed = ["name", "email", "mobile", "collegeName"]
+        const data = req.body;
+        const keyOf = Object.keys(data);
+        const receivedKey = filedAllowed.filter((x) => !keyOf.includes(x));
+        if (receivedKey.length) {
+            return res
+                .status(400)
+                .send({ status: "fail", msg: `${receivedKey} field is missing` });
+        }
         const { name, email, mobile, collegeName } = req.body;
         if (!valid(name))
             return res.status(400).send({ status: false, mgs: "name must be present" });

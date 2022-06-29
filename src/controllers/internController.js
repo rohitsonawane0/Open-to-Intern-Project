@@ -9,7 +9,5 @@ exports.createIntern = async function (req, res) {
   const savedData = await InternModel.create({ name, email, mobile, collegeId: requireId })
   const internId = savedData._id.toString()
   const updateToCollege = await CollegeModel.findByIdAndUpdate(requireId, { $addToSet: { interns: internId } })
-  console.log(updateToCollege)
-  console.log(internId)
   res.status(201).send({ status: true, mgs: savedData });
 };

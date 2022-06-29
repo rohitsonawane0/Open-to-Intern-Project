@@ -6,11 +6,14 @@ const valid = function (str) {
     return true;
 };
 
+const rex = /^[ A-Za-z_.,]*$/
+
 exports.validationCollege = async function (req, res, next) {
     try {
         const data = req.body;
         const { name, fullName, logoLink } = data;
         if (!valid(fullName)) return res.status(400).send({ status: false, mgs: "fullName must be present" });
+        if (rex.test(fullName) == false) return res.status(400).send({ status: false, mgs: "invalid" });
         if (!valid(logoLink)) return res.status(400).send({ status: false, mgs: "logoLink must be present" });
         if (!valid(name)) return res.status(400).send({ status: false, mgs: "name must be present" });
         const resultName = await CollegeModel.find({ name })
