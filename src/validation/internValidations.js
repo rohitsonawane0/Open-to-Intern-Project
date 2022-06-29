@@ -1,5 +1,4 @@
 const CollegeModel = require('../models/collegeModel')
-const InternController = require('../controllers/internController');
 const internModel = require('../models/internModel');
 
 const valid = function (str) {
@@ -20,11 +19,9 @@ const emailValid = function (str) {
 
 const checkNumber = function (str) {
     if (typeof str == "string" && str.trim().length == 0) return 'Mobile number cannot be empty'
-    console.log(mobileRegex.test(str))
-    // if (mobileRegex.test(str) != true) return 'Mobile incorrect'
-    if (str.startsWith("0") || str.startsWith("1") || str.startsWith("2") || str.startsWith("3") || str.startsWith("4") || str.startsWith("5")) return "Mobile number is invalid"
+    if (str.startsWith("0") || str.startsWith("1") || str.startsWith("2") || str.startsWith("3") || str.startsWith("4") || str.startsWith("5")) return `Mobile number cannot start with ${str[0]}`
     if (str.length != 10) return 'Mobile number must be 10 digits'
-    if (!mobileRegex.test(str)) return "Please provide valid mobileee";
+    if (!mobileRegex.test(str)) return "Mobile number can only contains numbers";
     return true
 }
 
