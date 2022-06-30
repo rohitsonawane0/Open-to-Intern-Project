@@ -15,13 +15,10 @@ exports.createCollege = async function (req, res) {
 exports.getCollegeDetails = async function (req, res) {
     try {
         const name = req.query.collegeName
-        console.log(name)
         if (!req.query.collegeName) return res.status(400).send({ status: false, msg: "Query cannot be empty" })
         let college = await CollegeModel.find({ name: name, isDeleted: false }).select({ _id: 0, isDeleted: 0, __v: 0 })
-        console.log(college)
         if (college.length == 0 || college.length == null || college == undefined) return res.status(404).send({ status: false, msg: "College not found" })
         let collegeId = await CollegeModel.find({ name: name, isDeleted: false }).select({ isDeleted: 0, __v: 0 })
-        console.log(collegeId)
         if (collegeId.length == 0 || collegeId == null || collegeId == undefined) return res.status(404).send({ status: false, msg: "College not found" })
         const internData = collegeId[0]["_id"].toString()
         let intern = await InternModel.find({ collegeId: internData, isDeleted: false }).select({ collegeId: 0, isDeleted: 0, __v: 0 })
