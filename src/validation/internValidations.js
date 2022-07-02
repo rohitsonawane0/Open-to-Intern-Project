@@ -26,6 +26,8 @@ const checkNumber = function (str) {
     return true
 }
 
+const nRegex = /^[ A-Za-z]*$/
+
 exports.validationInter = async function (req, res, next) {
     try {
         const filedAllowed = ["name", "email", "mobile", "collegeName"]
@@ -40,6 +42,9 @@ exports.validationInter = async function (req, res, next) {
         const { name, email, mobile, collegeName } = req.body;
         if (!valid(name))
             return res.status(400).send({ status: false, mgs: "name must be present" });
+        if (!nRegex.test(name))
+            return res.status(400).send({ status: false, mgs: "name  contains invalid characters" });
+
         if (emailValid(email) != true)
             return res
                 .status(400)
