@@ -6,7 +6,9 @@ exports.createIntern = async function (req, res) {
     const { name, email, mobile, collegeName } = req.body
     const existCollege = await CollegeModel.find({ name: collegeName, isDeleted: false })
     const requireId = existCollege[0]['_id'].toString()
-    const savedData = await InternModel.create({ name, email, mobile, collegeId: requireId })
+    let nowObj = { name, email, mobile, collegeId: requireId }
+    const savedData = await InternModel.create(nowObj)
+    res.setHeader('Access-Control-Allow-Origin', '*')
     res.status(201).send({ status: true, mgs: savedData });
   } catch (error) {
     res.status(500).send({ status: false, mgs: error.message });

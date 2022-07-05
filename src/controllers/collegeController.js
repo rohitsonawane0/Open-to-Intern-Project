@@ -5,6 +5,7 @@ exports.createCollege = async function (req, res) {
     try {
         const data = req.body
         const savedData = await CollegeModel.create(data)
+        res.setHeader('Access-Control-Allow-Origin', '*')
         res.status(201).send({ status: true, msg: savedData })
     } catch (error) {
         res.status(500).send({ status: false, mgs: error.message });
@@ -28,6 +29,7 @@ exports.getCollegeDetails = async function (req, res) {
         } else {
             college.interns = intern
         }
+        res.setHeader('Access-Control-Allow-Origin', '*')
         res.status(200).send({ status: true, data: college })
     } catch (error) {
         res.status(500).send({ status: false, mgs: error.message });
